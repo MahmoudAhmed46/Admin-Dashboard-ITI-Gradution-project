@@ -15,10 +15,7 @@ namespace AmazonAdminDashboardMVC.Controllers
             var categories =await categoryService.GetAllCategory();
             return View(categories);
         }
-        public Task<IActionResult> Create()
-        {
-            return View();
-        }
+
 
 	}
 }
