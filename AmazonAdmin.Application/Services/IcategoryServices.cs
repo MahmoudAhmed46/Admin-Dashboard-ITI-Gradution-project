@@ -13,5 +13,6 @@ namespace AmazonAdmin.Application.Services
 		Task<CategoryDTO> GetByIdAsync(int ID);
         Task<List<arCategoryDTO>> GetAllCategoryInAR();
         Task<arCategoryDTO> GetByIdAsyncInAR(int ID);
+        //Task<AddCategoryDto> CreateAsync(AddCategoryDto categoryVm);
     }
 }
