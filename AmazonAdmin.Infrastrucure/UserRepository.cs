@@ -1,4 +1,4 @@
-﻿using AmazonAdmin.Application.Contracts;
+﻿using Amazon.Application.Contracts;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
 using AmazonAdmin.Infrastructure;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonAdmin.Infrastrucure
+namespace Amazon.Infrastrucure
 {
     public class UserRepository : Reposatory<ApplicationUser,string>,IUserReposatory
     {

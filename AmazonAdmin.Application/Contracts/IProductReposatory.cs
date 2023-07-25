@@ -9,5 +9,6 @@ namespace AmazonAdmin.Application.Contracts
 {
     public interface IProductReposatory:IReposatory<Product,int>
     {
+        Task<bool> DeleteProductSoftly(int id);
     }
 }

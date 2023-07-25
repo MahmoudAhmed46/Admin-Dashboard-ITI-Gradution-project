@@ -33,7 +33,8 @@ namespace AmazonAdmin.Application.Services
         public async Task<List<ShowProductDTO>> GetAllProducts()
         {
             var products = await _reposatory.GetAllAsync();
-            return _mapper.Map<List<ShowProductDTO>>(products);
+            var res = products.Where(p => p.Status == true);
+            return _mapper.Map<List<ShowProductDTO>>(res);
         }
 
         public async Task<List<ShowProductDTO>> GetProductsByCategoryId(int categoryId)
@@ -145,5 +146,11 @@ namespace AmazonAdmin.Application.Services
                 return false;
             }
 		}
-	}
+
+        public async Task<bool> SoftDelete(int id)
+        {
+            var res = await _reposatory.DeleteProductSoftly(id);
+            return res ? true : false;
+        }
+    }
 }
