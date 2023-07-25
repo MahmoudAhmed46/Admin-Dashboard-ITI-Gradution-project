@@ -1,5 +1,4 @@
 ﻿using AmazonAdmin.DTO;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,6 @@ namespace AmazonAdmin.Application.Services
 		Task<CategoryDTO> GetByIdAsync(int ID);
         Task<List<arCategoryDTO>> GetAllCategoryInAR();
         Task<arCategoryDTO> GetByIdAsyncInAR(int ID);
-        Task<AddCategoryDto> CreateAsync(AddCategoryDto categoryVm);
-        Task<AddCategoryDto> UpdateAsync(AddCategoryDto categoryVm,int id);
+        //Task<AddCategoryDto> CreateAsync(AddCategoryDto categoryVm);
     }
 }

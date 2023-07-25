@@ -30,28 +30,16 @@ namespace AmazonAdmin.Application.Services
             else { return false; }
         }
 
-        public async Task<string> getImageByCategoryId(int id)
-        {
-            var ImageUrl = _imagerepo.GetImagesByCategoryId(id);
-            return ImageUrl;
-        }
-
-        public int getImageObjByCategoryId(int id)
-        {
-            int imageId = _imagerepo.GetImageObjectByCategoryId(id);
-            return imageId;
-        }
-
         public async Task<List<ImageDTO>> gitImagesByProdId(int id)
         {
             var res=_imagerepo.GetImagesByProductdId(id);
             return _Mapper.Map<Task<List<Image>>, List<ImageDTO>>(res);
         }
 
-        public async Task<bool> UpdateImage(ImageDTO img)
+        public async Task<bool> UpdateImage(ImageDTO img, int id)
         {
             Image image = _Mapper.Map<Image>(img);
-            image.Id = img.Id;
+            image.Id = id;
             var res = await _imagerepo.UpdateAsync(image);
             if (res)
             {
