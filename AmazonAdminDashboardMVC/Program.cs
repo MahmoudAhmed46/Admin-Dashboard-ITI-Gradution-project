@@ -1,3 +1,6 @@
+using Amazon.Application.Contracts;
+using Amazon.Application.Services;
+using Amazon.Infrastrucure;
 using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Application.Services;
 using AmazonAdmin.Context;
@@ -34,12 +37,17 @@ namespace AmazonAdminDashboardMVC
 			builder.Services.AddScoped<IcategoryServices, CategoryService>();
 			builder.Services.AddScoped<ISubCategoryReposatory, SubCategoryReposatory>();
 			builder.Services.AddScoped<ISubcategoryServices, SubCategoryService>();
-			builder.Services.AddScoped<IOrderItemReposatory, OrderItemReposatory>();
+            builder.Services.AddScoped<IOrderReposatory, OrderRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
 			builder.Services.AddScoped<IOrderItemService, OrderItemServices>();
+            builder.Services.AddScoped<IOrderItemReposatory, OrderItemReposatory>();
 			builder.Services.AddScoped<IImageReposatory, ImageReposatory>();
 			builder.Services.AddScoped<IUserReposatory, UserRepository>();
+            //builder.Services.AddScoped<>
             builder.Services.AddScoped<IImageService, ImageService>();
-			var app = builder.Build();
+            builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+            builder.Services.AddScoped<IRatingService, RatingService>();
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

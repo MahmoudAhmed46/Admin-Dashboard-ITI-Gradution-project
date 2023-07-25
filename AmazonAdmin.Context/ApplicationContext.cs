@@ -19,7 +19,6 @@ namespace AmazonAdmin.Context
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<shippingAddress> ShippingAddresses{ get; set; }
         public virtual DbSet<Rating> Ratings{ get; set; }
-        public virtual DbSet<ProductRating> ProductRatings{ get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -32,7 +31,7 @@ namespace AmazonAdmin.Context
 
             modelBuilder.Entity<Product>(p =>
             {
-                p.Property(t => t.Status).HasDefaultValue(true);
+                p.Property(s => s.Status).HasDefaultValue(true);
             });
             base.OnModelCreating(modelBuilder);
 

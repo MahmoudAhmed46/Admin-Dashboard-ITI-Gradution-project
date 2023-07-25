@@ -19,7 +19,5 @@ namespace AmazonAdmin.Domain
         public int id { get; set; }
         public Star Star { get; set; }
         public string Review { get; set; }
-        public virtual ICollection<ProductRating> ProductRatings { get; set; } =
-         new HashSet<ProductRating>();
     }
 }
