@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace AmazonAdmin.Application.Contracts
 {
-    internal interface IRatingRepository : IReposatory<Rating, int>
+    public interface IRatingRepository : IReposatory<Rating, int>
     {
+        Task<List<Rating>> GetAllByProductIdAsync(int productId);
     }
 }

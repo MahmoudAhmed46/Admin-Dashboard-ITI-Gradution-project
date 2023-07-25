@@ -9,5 +9,7 @@ namespace AmazonAdmin.Application.Contracts
 {
     public interface IOrderItemReposatory:IReposatory<OrderItem,int>
     {
+        Task<List<OrderItem>> getOrderItemsByOrderId(int id);
+        Task<bool> deleteOrderItemsByOrderId(int id);   
     }
 }

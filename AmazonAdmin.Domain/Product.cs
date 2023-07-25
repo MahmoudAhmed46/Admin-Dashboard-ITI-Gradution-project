@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,7 +31,5 @@ namespace AmazonAdmin.Domain
         public virtual Category Category { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; } =
             new HashSet<OrderItem>();
-        public virtual ICollection<ProductRating> ProductRatings { get; set; } =
-        new HashSet<ProductRating>();
     }
 }

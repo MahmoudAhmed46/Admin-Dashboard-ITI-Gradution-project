@@ -9,5 +9,6 @@ namespace AmazonAdmin.Application.Contracts
 {
     public interface IOrderReposatory:IReposatory<Order, int>
     {
+        Task<List<Order>> getAllOrdersByUserId(string id);
     }
 }
