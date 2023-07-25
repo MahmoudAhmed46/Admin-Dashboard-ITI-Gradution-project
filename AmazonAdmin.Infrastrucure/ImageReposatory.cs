@@ -29,5 +29,10 @@ namespace AmazonAdmin.Infrastrucure
             var res = Context.Images.Where(p => p.ProductID == id).Select(i=>i.Name).ToList();
             return res;
         }
+
+        public async Task<List<Image>> GetImagesByProductdId(int id)
+        {
+            return  Context.Images.Where(p => p.ProductID == id).ToList();
+        }
     }
 }

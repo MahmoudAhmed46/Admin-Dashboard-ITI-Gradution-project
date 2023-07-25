@@ -18,10 +18,14 @@ namespace AmazonAdmin.Application.Mapper
             CreateMap<Category,arCategoryDTO>().ReverseMap();
             CreateMap<Category, arsubcategory>().ReverseMap();
             CreateMap<Product, ShowProductDTO>().ReverseMap();
+            CreateMap<Product,AddUpdateProductDTO>().ReverseMap();
             CreateMap<Product, ArShowproduct>().ReverseMap();
             CreateMap<ApplicationUser,UserRegisterDTO>().ReverseMap();
             CreateMap<ApplicationUser,UserLoginDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemShow>().ReverseMap();
-        }
+            CreateMap<Image, ImageDTO>().ReverseMap();
+            CreateMap<AddUpdateProductDTO, ShowProductDTO>().ReverseMap();
+			CreateMap<Task<List<Image>>, List<ImageDTO>>();
+		}
     }
 }

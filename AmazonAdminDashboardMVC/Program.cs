@@ -38,6 +38,7 @@ namespace AmazonAdminDashboardMVC
 			builder.Services.AddScoped<IOrderItemService, OrderItemServices>();
 			builder.Services.AddScoped<IImageReposatory, ImageReposatory>();
 			builder.Services.AddScoped<IUserReposatory, UserRepository>();
+            builder.Services.AddScoped<IImageService, ImageService>();
 			var app = builder.Build();
 
             // Configure the HTTP request pipeline.

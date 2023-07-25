@@ -30,6 +30,10 @@ namespace AmazonAdmin.Context
             .IsUnique()
             .HasFilter("Phone IS NOT NULL AND EmailAddress IS NOT NULL");
 
+            modelBuilder.Entity<Product>(p =>
+            {
+                p.Property(t => t.Status).HasDefaultValue(true);
+            });
             base.OnModelCreating(modelBuilder);
 
         }
