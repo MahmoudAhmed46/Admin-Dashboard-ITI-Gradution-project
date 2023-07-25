@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Amazon.Application.Contracts
+namespace AmazonAdmin.Application.Contracts
 {
     public interface IRatingRepository : IReposatory<Rating, int>
     {

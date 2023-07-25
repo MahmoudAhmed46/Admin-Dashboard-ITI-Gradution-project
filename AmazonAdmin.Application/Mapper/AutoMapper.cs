@@ -1,5 +1,4 @@
-﻿using Amazon.DTO;
-using AmazonAdmin.Domain;
+﻿using AmazonAdmin.Domain;
 using AmazonAdmin.DTO;
 using AutoMapper;
 using System;
@@ -27,7 +26,9 @@ namespace AmazonAdmin.Application.Mapper
             CreateMap<Image, ImageDTO>().ReverseMap();
             CreateMap<AddUpdateProductDTO, ShowProductDTO>().ReverseMap();
 			CreateMap<Task<List<Image>>, List<ImageDTO>>();
-            CreateMap<Order, OrderDTO>().ReverseMap();
+			CreateMap<Category, AddCategoryDto>().ReverseMap();
+			CreateMap<CategoryDTO, AddCategoryDto>().ReverseMap();
+			CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<Rating, RatingDTO>().ReverseMap();
         }
     }

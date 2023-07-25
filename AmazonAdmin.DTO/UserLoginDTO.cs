@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Amazon.DTO
+namespace AmazonAdmin.DTO
 {
 	public class UserLoginDTO
 	{

@@ -1,12 +1,8 @@
-using Amazon.Application.Contracts;
-using Amazon.Application.Services;
-using Amazon.Infrastrucure;
 using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Application.Services;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
 using AmazonAdmin.Infrastructure;
-using AmazonAdmin.Infrastrucure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

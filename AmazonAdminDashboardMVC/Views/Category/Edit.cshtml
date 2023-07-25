@@ -2,11 +2,11 @@
 @{
     SelectList categoryList = new SelectList(Model.Categories, "Id", "Name");
 }
-<h1 class="m-3 text-info"><strong>Create</strong></h1>
+<h1 class="m-3 text-info"><strong>Edit</strong></h1>
 <hr />
 <div class="row m-5">
     <div class="col-md-12">
-        <form asp-action="Create" enctype="multipart/form-data">
+        <form asp-action="Edit" enctype="multipart/form-data">
 
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -29,9 +29,16 @@
                 <label asp-for="imageFile" class="control-label"></label>
                 <input asp-for="imageFile" class="form-control" />
                 <span asp-validation-for="imageFile" class="text-danger"></span>
+                <div class="m-2">
+                    @if (Model.ImageUrl != null)
+                    {
+                        <img src="/images/@Model.ImageUrl" class="rounded" />
+                    }
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+         
+            <div class="form-group text-center">
+                <input type="submit" value="Update" class="btn btn-primary w-25" />
             </div>
         </form>
     </div>
@@ -43,5 +50,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"></partial>
-    @*    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }

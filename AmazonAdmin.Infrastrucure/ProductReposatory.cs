@@ -1,7 +1,6 @@
 ﻿using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
-using AmazonAdmin.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

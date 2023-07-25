@@ -1,14 +1,14 @@
 ﻿using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
-using AmazonAdmin.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonAdmin.Infrastrucure
+namespace AmazonAdmin.Infrastructure
 {
     public class ImageReposatory : Reposatory<Image, int>, IImageReposatory
     {
@@ -18,7 +18,13 @@ namespace AmazonAdmin.Infrastrucure
             Context = context;
         }
 
-        public  string GetImagesByCategoryId(int id)
+        public int GetImageObjectByCategoryId(int categoryId)
+        {
+            int imgId = Context.Images.FirstOrDefaultAsync(p => p.categoryId == categoryId).Id;
+            return imgId;
+        }
+
+        public string GetImagesByCategoryId(int id)
         {
             var res = Context.Images.FirstOrDefault(p => p.categoryId == id)?.Name;
             return res;
@@ -26,13 +32,13 @@ namespace AmazonAdmin.Infrastrucure
 
         public async Task<List<string>> GetImagesByPrdId(int id)
         {
-            var res = Context.Images.Where(p => p.ProductID == id).Select(i=>i.Name).ToList();
+            var res = Context.Images.Where(p => p.ProductID == id).Select(i => i.Name).ToList();
             return res;
         }
 
         public async Task<List<Image>> GetImagesByProductdId(int id)
         {
-            return  Context.Images.Where(p => p.ProductID == id).ToList();
+            return Context.Images.Where(p => p.ProductID == id).ToList();
         }
     }
 }

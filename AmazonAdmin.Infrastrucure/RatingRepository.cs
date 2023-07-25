@@ -1,14 +1,13 @@
 ﻿using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
-using AmazonAdmin.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace AmazonAdmin.Infrastrucure
+namespace AmazonAdmin.Infrastructure
 {
     public class RatingRepository : Reposatory<Rating, int>, IRatingRepository
     {
