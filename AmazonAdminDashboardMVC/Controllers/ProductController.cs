@@ -125,15 +125,8 @@ namespace AmazonAdminDashboardMVC.Controllers
 		}
 		public async Task<IActionResult> DeleteProduct(int id)
 		{
-			var res=await _services.DeleteProduct(id);
-            if (res)
-            {
+			var res=await _services.SoftDelete(id);
                 return RedirectToAction("Index");
-            }
-            else
-            {
-                return RedirectToAction("AddProduct");
-            }
 		}
 
 

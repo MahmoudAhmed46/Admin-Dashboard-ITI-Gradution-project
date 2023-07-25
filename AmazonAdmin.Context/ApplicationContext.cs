@@ -31,7 +31,7 @@ namespace AmazonAdmin.Context
 
             modelBuilder.Entity<Product>(p =>
             {
-                p.Property(t => t.Status).HasDefaultValue(true);
+                p.Property(s => s.Status).HasDefaultValue(true);
             });
             base.OnModelCreating(modelBuilder);
 

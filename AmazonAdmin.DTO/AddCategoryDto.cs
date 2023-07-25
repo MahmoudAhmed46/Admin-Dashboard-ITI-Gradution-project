@@ -13,17 +13,15 @@ namespace AmazonAdmin.DTO
     public class AddCategoryDto
     {
         public int Id { get; set; }
-        [MinLength(3, ErrorMessage = "Name Length Must Be Between 3 to 50 char")]
+        [MinLength(5, ErrorMessage = "Name Length Must Be Between 3 to 50 char")]
         public string Name { get; set; }
-        [MinLength(3, ErrorMessage = "يجب ان لا يقل الاسم عن 3 حروف")]
+        [MinLength(5, ErrorMessage = "يجب ان لا يقل الاسم عن 5 حروف")]
         [Display(Name = "Arabic Name")]
         public string arabicName { get; set; }
         public int? categoryId { get; set; }
-        public List<CategoryDTO>? Categories { get; set; }
         public string? ImageUrl { get; set; }
         [Display(Name = "Image")]
-        [AllowedImageExtensions(".jpg", ".png", ".gif")]
-        //[RegularExpression(@"^.*\.(jpg|png|gif)", ErrorMessage = "Please Select Extention for image only jpg or png")]
-        public IFormFile? imageFile { get; set; }
+        [RegularExpression(@"\w+\.(jpg|png)", ErrorMessage = "Please Select Extention for image only jpg or png")]
+        public IFormFile? File { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
 using AmazonAdmin.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +18,7 @@ namespace AmazonAdmin.Infrastrucure
             Context = context;
         }
 
-        public int GetImageObjectByCategoryId(int categoryId)
-        {
-            int imgId = Context.Images.FirstOrDefaultAsync(p => p.categoryId == categoryId).Id;
-            return imgId;
-        }
-
-        public string GetImagesByCategoryId(int id)
+        public  string GetImagesByCategoryId(int id)
         {
             var res = Context.Images.FirstOrDefault(p => p.categoryId == id)?.Name;
             return res;

@@ -8,13 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace AmazonAdmin.Infrastrucure
 {
     public class OrderItemReposatory : Reposatory<OrderItem, int>, IOrderItemReposatory
     {
         private readonly ApplicationContext context;
+
         private readonly DbSet<OrderItem> dbset;
+
+        private readonly DbSet<OrderItem> dbset ;
+
 
         public OrderItemReposatory(ApplicationContext context) : base(context)
         {
@@ -25,7 +28,7 @@ namespace AmazonAdmin.Infrastrucure
         public async Task<bool> deleteOrderItemsByOrderId(int id)
         {
             var orderItems = await dbset.Where(O => O.OrderId == id).ToListAsync();
-            foreach (var item in orderItems)
+            foreach(var item in orderItems)
             {
                 dbset.Remove(item);
                 await SaveChangesAsync();

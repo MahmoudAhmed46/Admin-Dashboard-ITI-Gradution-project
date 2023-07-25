@@ -21,5 +21,6 @@ namespace AmazonAdmin.Application.Services
         Task<ShowProductDTO> CreateProduct(AddUpdateProductDTO product);
         Task<bool> UpdateProduct(int id, AddUpdateProductDTO product);
         Task<bool> DeleteProduct(int id);
+        Task<bool> SoftDelete(int id);
     }
 }

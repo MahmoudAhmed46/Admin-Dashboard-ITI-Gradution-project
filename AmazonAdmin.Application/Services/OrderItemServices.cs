@@ -1,6 +1,6 @@
-﻿using AmazonAdmin.Application.Contracts;
+﻿using Amazon.Application.Contracts;
+using Amazon.DTO;
 using AmazonAdmin.Domain;
-using AmazonAdmin.DTO;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AmazonAdmin.Application.Services
+namespace Amazon.Application.Services
 {
     public class OrderItemServices : IOrderItemService
     {
@@ -21,9 +21,9 @@ namespace AmazonAdmin.Application.Services
             _repository = repository;
         }
 
-        public async Task<List<OrderItemShow>> orderItems()
+        public async Task<List<OrderItemShow>> getOrderItemsByOrderId(int id)
         {
-            var res =await _repository.GetAllAsync();
+            var res =await _repository.getOrderItemsByOrderId(id);
             
             return _Mapper.Map<List<OrderItemShow>>(res);
         }
