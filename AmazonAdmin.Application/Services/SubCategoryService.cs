@@ -30,7 +30,7 @@ namespace AmazonAdmin.Application.Services
 
             foreach (var item in list)
 			{
-				var res = _imageReposatory.GetImagesByCategoryId(item.Id);
+				var res =  _imageReposatory.GetImagesByCategoryId(item.Id);
                 if(res != null)
 				{
                     item.imageName = res;

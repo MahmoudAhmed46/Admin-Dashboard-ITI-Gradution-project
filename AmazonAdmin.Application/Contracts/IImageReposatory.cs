@@ -11,7 +11,6 @@ namespace AmazonAdmin.Application.Contracts
     {
 		public Task<List<String>> GetImagesByPrdId(int id);
         public Task<List<Image>> GetImagesByProductdId(int id);
-        public int GetImageObjectByCategoryId(int categoryId);
         public string GetImagesByCategoryId(int id);
     }
 }

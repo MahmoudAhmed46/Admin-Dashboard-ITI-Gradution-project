@@ -26,9 +26,6 @@ namespace AmazonAdmin.Application.Mapper
             CreateMap<Image, ImageDTO>().ReverseMap();
             CreateMap<AddUpdateProductDTO, ShowProductDTO>().ReverseMap();
 			CreateMap<Task<List<Image>>, List<ImageDTO>>();
-            CreateMap<Category,AddCategoryDto>().ReverseMap();
-            CreateMap<CategoryDTO,AddCategoryDto>().ReverseMap();
-
-        }
+		}
     }
 }

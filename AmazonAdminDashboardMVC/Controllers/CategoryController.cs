@@ -10,36 +10,36 @@ namespace AmazonAdminDashboardMVC.Controllers
         private readonly IcategoryServices categoryService;
         private readonly IImageService imageService;
         private readonly IMapper _Mapper;
-        public CategoryController(IcategoryServices _categoryService, 
+        public CategoryController(IcategoryServices _categoryService,
             IMapper Mapper,
             IImageService _imageService)
         {
             categoryService = _categoryService;
             _Mapper = Mapper;
-            imageService=_imageService;
+            imageService = _imageService;
         }
         public async Task<IActionResult> Index()
         {
-            var categories =await categoryService.GetAllCategory();
+            var categories = await categoryService.GetAllCategory();
             return View(categories);
         }
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var categories =await categoryService.GetAllCategory();
+            var categories = await categoryService.GetAllCategory();
             AddCategoryDto categoryDto = new AddCategoryDto();
             categoryDto.Categories = categories;
-			return View(categoryDto);
+            return View(categoryDto);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddCategoryDto categoryVm)
         {
-            
+
             if (ModelState.IsValid)
             {
                 var resultCategory = await categoryService.CreateAsync(categoryVm);
-                if(resultCategory != null)
+                if (resultCategory != null)
                 {
                     return RedirectToAction("Index");
                 }
@@ -59,9 +59,9 @@ namespace AmazonAdminDashboardMVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(AddCategoryDto categoryvm,int id)
+        public async Task<IActionResult> Edit(AddCategoryDto categoryvm, int id)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var result = await categoryService.UpdateAsync(categoryvm, id);
                 return RedirectToAction("Index");
