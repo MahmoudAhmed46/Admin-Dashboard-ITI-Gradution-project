@@ -10,8 +10,10 @@ namespace AmazonAdmin.Application.Services
     public interface IImageService
     {
         Task<bool> uploadImage(ImageDTO img);
-        Task<bool> UpdateImage(ImageDTO img, int id);
+        Task<bool> UpdateImage(ImageDTO img);
         Task<bool> deleteImage(int id);
         Task<List<ImageDTO>> gitImagesByProdId(int id);
+        Task<string> getImageByCategoryId(int id);
+        int getImageObjByCategoryId(int id);
     }
 }
