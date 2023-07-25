@@ -1,4 +1,4 @@
-﻿using Amazon.Application.Contracts;
+﻿using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
 using AmazonAdmin.Infrastructure;
@@ -8,8 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Amazon.Infrastrucure
+namespace AmazonAdmin.Infrastrucure
 {
     public class RatingRepository : Reposatory<Rating, int>, IRatingRepository
     {

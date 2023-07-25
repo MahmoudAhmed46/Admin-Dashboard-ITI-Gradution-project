@@ -1,5 +1,5 @@
-﻿using Amazon.Application.Contracts;
-using Amazon.DTO;
+﻿using AmazonAdmin.Application.Contracts;
+using AmazonAdmin.DTO;
 using AmazonAdmin.Context;
 using AmazonAdmin.Domain;
 using AmazonAdmin.Infrastructure;
@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+namespace AmazonAdmin.Infrastrucure
 
-namespace Amazon.Infrastrucure
 {
     public class OrderRepository : Reposatory<Order, int>, IOrderReposatory
     {

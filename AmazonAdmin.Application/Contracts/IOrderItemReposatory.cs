@@ -1,4 +1,3 @@
-﻿using Amazon.DTO;
 using AmazonAdmin.Application.Contracts;
 using AmazonAdmin.Domain;
 using System;
@@ -12,6 +11,10 @@ namespace Amazon.Application.Contracts
     public interface IOrderItemReposatory:IReposatory<OrderItem,int>
     {
         Task<List<OrderItem>> getOrderItemsByOrderId(int id);
+
+        Task<bool> deleteOrderItemsByOrderId(int id);   
+
         Task<bool> deleteOrderItemsByOrderId(int id);
+
     }
 }
