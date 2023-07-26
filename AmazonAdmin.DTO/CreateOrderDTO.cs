@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AmazonAdmin.Domain;
 
-namespace Amazon.DTO
+namespace AmazonAdmin.DTO
 {
     public class CreateOrderDTO
     {
