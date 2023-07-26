@@ -397,3 +397,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /AmazonAdminDashboardMVC/Views/Shared/_AdminLayout.cshtml
+/AmazonAdminDashboardMVC/appsettings.json
+/AmazonAdmin.Context/Migrations/20230726170102_addRate.cs
+/AmazonAdmin.Context/Migrations/20230726170102_addRate.Designer.cs

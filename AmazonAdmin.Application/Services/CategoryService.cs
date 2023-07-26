@@ -68,12 +68,14 @@ namespace AmazonAdmin.Application.Services
             var Categoryres = await _Repo.CreateAsync(category);
 
             string filename = await generateImageName(categoryVm.imageFile);
-
-            await imageService.uploadImage(new ImageDTO()
+            if (filename != string.Empty)
             {
-                Name = filename,
-                categoryId = Categoryres?.Id
-            });
+                await imageService.uploadImage(new ImageDTO()
+                {
+                    Name = filename,
+                    categoryId = Categoryres?.Id
+                });
+            }
             return mapper.Map<AddCategoryDto>(Categoryres);
         }
 
@@ -87,25 +89,34 @@ namespace AmazonAdmin.Application.Services
                 categoryId = (categoryVm.categoryId != 0) ? categoryVm.categoryId : null,
             };
             var res = await _Repo.UpdateAsync(category);
-            if (res)
-            {
-                await _Repo.SaveChangesAsync();
-            }
-
             string filename = await generateImageName(categoryVm.imageFile);
-            var imageId = imageService.getImageObjByCategoryId(id);
-            await imageService.UpdateImage(new ImageDTO()
+            if (filename != string.Empty)
             {
-                Id = imageId,
-                Name = filename,
-                categoryId = id
-            });
-            return mapper.Map<AddCategoryDto>(category);
+				var imageId = imageService.getImageObjByCategoryId(id);
+				await imageService.UpdateImage(new ImageDTO()
+                {
+                    Id = imageId,
+                    Name = filename,
+                    categoryId = id
+                });
+            }
+            else if(filename != string.Empty)
+            {
+				await imageService.uploadImage(new ImageDTO()
+				{
+					Name = filename,
+					categoryId = id
+				});
+			}
+
+		   await _Repo.SaveChangesAsync();
+			
+			return mapper.Map<AddCategoryDto>(category);
         }
         private async Task<string> generateImageName(IFormFile? image)
         {
             string filename = "";
-            if (image != null || image?.Length != 0)
+            if (image != null || image?.Length > 0)
             {
                 string uploads = Path.Combine(hosting.WebRootPath, "images");
                 filename = new Guid().ToString() + "_" + image?.FileName;

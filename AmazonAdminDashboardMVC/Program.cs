@@ -20,6 +20,7 @@ namespace AmazonAdminDashboardMVC
 			builder.Services.AddDbContext<ApplicationContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("CS"));
+				options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 			});
 			builder.Services.AddIdentity<ApplicationUser, IdentityRole>(option =>
 			{

@@ -20,8 +20,9 @@ namespace AmazonAdmin.Infrastructure
 
         public int GetImageObjectByCategoryId(int categoryId)
         {
-            int imgId = Context.Images.FirstOrDefaultAsync(p => p.categoryId == categoryId).Id;
-            return imgId;
+            var imgage = Context.Images.FirstOrDefault(p => p.categoryId == categoryId);
+            int id = (imgage != null) ? imgage.Id : 0;
+            return id;
         }
 
         public string GetImagesByCategoryId(int id)

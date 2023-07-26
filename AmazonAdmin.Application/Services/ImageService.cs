@@ -51,7 +51,7 @@ namespace AmazonAdmin.Application.Services
         public async Task<bool> UpdateImage(ImageDTO img)
         {
             Image image = _Mapper.Map<Image>(img);
-            image.Id = img.Id;
+            //image.Id = img.Id;
             var res = await _imagerepo.UpdateAsync(image);
             if (res)
             {

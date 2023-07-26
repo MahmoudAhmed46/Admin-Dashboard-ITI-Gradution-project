@@ -132,7 +132,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasIndex("categoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.City", b =>
@@ -155,7 +155,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.Country", b =>
@@ -173,7 +173,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.Image", b =>
@@ -202,7 +202,7 @@ namespace AmazonAdmin.Context.Migrations
                         .IsUnique()
                         .HasFilter("[categoryId] IS NOT NULL");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.Order", b =>
@@ -235,7 +235,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasIndex("shippingAddressId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.OrderItem", b =>
@@ -279,7 +279,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.Product", b =>
@@ -324,33 +324,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
-                });
-
-            modelBuilder.Entity("AmazonAdmin.Domain.ProductRating", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("Ratingid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("productId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("rateId")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("Ratingid");
-
-                    b.HasIndex("productId");
-
-                    b.ToTable("ProductRatings", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.Rating", b =>
@@ -361,16 +335,25 @@ namespace AmazonAdmin.Context.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<string>("Review")
+                    b.Property<int>("productId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("review")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Star")
-                        .HasColumnType("int");
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 
-                    b.ToTable("Ratings", (string)null);
+                    b.HasIndex("productId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("AmazonAdmin.Domain.shippingAddress", b =>
@@ -391,7 +374,7 @@ namespace AmazonAdmin.Context.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("ShippingAddresses", (string)null);
+                    b.ToTable("ShippingAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -626,23 +609,15 @@ namespace AmazonAdmin.Context.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("AmazonAdmin.Domain.ProductRating", b =>
+            modelBuilder.Entity("AmazonAdmin.Domain.Rating", b =>
                 {
-                    b.HasOne("AmazonAdmin.Domain.Rating", "Rating")
-                        .WithMany("ProductRatings")
-                        .HasForeignKey("Ratingid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("AmazonAdmin.Domain.Product", "Product")
-                        .WithMany("ProductRatings")
+                        .WithMany()
                         .HasForeignKey("productId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
-
-                    b.Navigation("Rating");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -730,13 +705,6 @@ namespace AmazonAdmin.Context.Migrations
                     b.Navigation("Images");
 
                     b.Navigation("OrderItems");
-
-                    b.Navigation("ProductRatings");
-                });
-
-            modelBuilder.Entity("AmazonAdmin.Domain.Rating", b =>
-                {
-                    b.Navigation("ProductRatings");
                 });
 #pragma warning restore 612, 618
         }

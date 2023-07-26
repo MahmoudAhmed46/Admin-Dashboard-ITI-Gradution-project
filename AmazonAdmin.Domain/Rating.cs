@@ -7,28 +7,23 @@ using System.Threading.Tasks;
 
 namespace AmazonAdmin.Domain
 {
-    public enum Star
-    {
-        oneStar = 1,
-        twoStar,
-        threeStar,
-        fourStar,
-        fiveStar,
-    }
-    public class Rating
-    {
-        public int id { get; set; }
+	public enum Star
+	{
+		oneStar = 1,
+		twoStar,
+		threeStar,
+		fourStar,
+		fiveStar,
+	}
+	public class Rating
+	{
+		public int id { get; set; }
+		public Star rate { get; set; }
+		public string review { get; set; }
+		public string userName { get; set; }
 
-        public Star rate { get; set; }
-        public string review { get; set; }
-        public string userName { get; set; }
-
-        [ForeignKey("Product")]
-        public int productId { get; set; }
-        public Product Product { get; set; }
-
-        public Star Star { get; set; }
-        public string Review { get; set; }
-
-    }
+		[ForeignKey("Product")]
+		public int productId { get; set; }
+		public Product Product { get; set; }
+	}
 }
