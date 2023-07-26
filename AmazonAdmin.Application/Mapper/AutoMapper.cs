@@ -29,7 +29,7 @@ namespace AmazonAdmin.Application.Mapper
 			CreateMap<Category, AddCategoryDto>().ReverseMap();
 			CreateMap<CategoryDTO, AddCategoryDto>().ReverseMap();
 			CreateMap<Order, OrderDTO>().ReverseMap();
-            CreateMap<Rating, RatingDTO>().ReverseMap();
+
         }
     }
 }

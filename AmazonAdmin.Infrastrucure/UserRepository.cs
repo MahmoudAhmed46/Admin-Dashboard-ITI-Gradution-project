@@ -29,6 +29,5 @@ namespace AmazonAdmin.Infrastructure
         {
             return await _Dbset.FirstOrDefaultAsync(u => u.EmailAddress == email);
         }
-        
     }
 }

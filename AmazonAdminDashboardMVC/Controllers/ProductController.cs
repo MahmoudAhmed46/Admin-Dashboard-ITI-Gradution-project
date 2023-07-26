@@ -51,7 +51,7 @@ namespace AmazonAdminDashboardMVC.Controllers
 							createProductDTO.SubCategories = await _catservice.GetAllSubcategories();
 							return View(createProductDTO);
 						}
-						string uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+						string uploadPath = Path.Combine("G:/GraduatedProgect/", "uploadedImages");
                         string filname = new Guid().ToString() + "_" + item.FileName;
                         string fullPath = Path.Combine(uploadPath, filname);
 
