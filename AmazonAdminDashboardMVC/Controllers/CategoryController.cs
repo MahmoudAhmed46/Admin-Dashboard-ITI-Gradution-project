@@ -10,15 +10,18 @@ namespace AmazonAdminDashboardMVC.Controllers
 	public class CategoryController : Controller
     {
         private readonly IcategoryServices categoryService;
+        private readonly ISubcategoryServices _subcategoryService;
         private readonly IImageService imageService;
         private readonly IMapper _Mapper;
         public CategoryController(IcategoryServices _categoryService,
             IMapper Mapper,
-            IImageService _imageService)
+            IImageService _imageService,
+            ISubcategoryServices subcategoryServices)
         {
             categoryService = _categoryService;
             _Mapper = Mapper;
             imageService = _imageService;
+            _subcategoryService = subcategoryServices;
         }
         public async Task<IActionResult> Index()
         {
@@ -69,6 +72,11 @@ namespace AmazonAdminDashboardMVC.Controllers
                 return RedirectToAction("Index");
             }
             return View();
+        }
+        public async Task<IActionResult> GetSubCategories(int id)
+        {
+            List<SubCategoryDTO> subCategories = await _subcategoryService.getSubCategoryByCatId(id);
+            return View(subCategories);
         }
     }
 }

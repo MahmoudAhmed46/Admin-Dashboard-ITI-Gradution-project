@@ -2,8 +2,10 @@
 using AmazonAdmin.Domain;
 using AmazonAdmin.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AmazonAdminDashboardMVC.Controllers
 {
@@ -88,6 +90,80 @@ namespace AmazonAdminDashboardMVC.Controllers
         {
             await _SignInManager.SignOutAsync(); 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> Profile()
+        {
+            string UsrId = User.Claims.FirstOrDefault(p => p.Type == ClaimTypes.NameIdentifier).Value;
+            var user =await _UserManager.FindByIdAsync(UsrId);
+            if(user != null)
+            {
+                return View(_Mapper.Map<UserRegisterDTO>(user));
+            }
+            return NotFound();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Profile(UserRegisterDTO userRegisterDTO)
+        {
+            string UsrId = User.Claims.FirstOrDefault(p => p.Type == ClaimTypes.NameIdentifier).Value;
+            var user = await _UserManager.FindByIdAsync(UsrId);
+            if (user != null)
+            {
+                user.UserName = userRegisterDTO.userName;
+                user.Phone = userRegisterDTO.Phone;
+                user.EmailAddress = userRegisterDTO.EmailAddress;
+                var res=await _UserManager.UpdateAsync(user);
+                if (res.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View(userRegisterDTO);
+                }
+            }
+            return NotFound();
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ChangePassword()
+        {
+            return View();
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDTO changepass)
+        {
+            if (ModelState.IsValid)
+            {
+                string UsrId = User.Claims.FirstOrDefault(p => p.Type == ClaimTypes.NameIdentifier).Value;
+                var user = await _UserManager.FindByIdAsync(UsrId);
+                if (user != null)
+                {
+                    var checkpassres = await _UserManager.CheckPasswordAsync(user, changepass.OldPassword);
+                    if (checkpassres)
+                    {
+                        var Change = await _UserManager.ChangePasswordAsync(user, changepass.OldPassword, changepass.NewPassword);
+                        if (Change.Succeeded)
+                        {
+                            return RedirectToAction("Profile");
+                        }
+                        else
+                        {
+                            return View(changepass);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("OldPassword", "Error password !");
+                    }
+                }
+            }
+            return View();
         }
     }
 }

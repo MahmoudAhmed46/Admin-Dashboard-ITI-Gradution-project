@@ -1,4 +1,9 @@
-﻿@model List<CategoryDTO>
+﻿@model List<SubCategoryDTO>
+@{
+    ViewData["Title"] = "GetSubCategories";
+    Layout = "_Layout";
+}
+
 <div>
 	<a class="btn btn-primary m-3" asp-controller="Category" asp-action="Create">Create Category</a>
 </div>
@@ -26,7 +31,7 @@
 				</div>
 				<div class="card-footer">
 					<div class="text-center">
-						<a class="btn btn-sm btn-info" asp-controller="Category" asp-action="GetSubCategories" asp-route-id="@category.Id">
+						<a class="btn btn-sm btn-info" asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">
 							SubCategories
 						</a>
 						<a class="btn btn-sm bg-teal" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">
@@ -41,3 +46,5 @@
 		</div>
 	}
 </div>
+
+
