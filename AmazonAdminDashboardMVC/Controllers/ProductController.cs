@@ -1,17 +1,20 @@
 ﻿using AmazonAdmin.Application.Services;
 using AmazonAdmin.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmazonAdminDashboardMVC.Controllers
 {
-    public class ProductController : Controller
+	[Authorize(Roles = "Admin")]
+	public class ProductController : Controller
     {
         private readonly IProductServices _services;
         private readonly ISubcategoryServices _catservice;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IImageService _imageservice;
         private readonly IMapper _Mapper;
+
         public ProductController(IProductServices services, ISubcategoryServices categoryservice, IWebHostEnvironment webHostEnvironment, IImageService imageService,IMapper mapper)
         {
             _services = services;

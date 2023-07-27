@@ -1,11 +1,13 @@
 ﻿using AmazonAdmin.Application.Services;
 using AmazonAdmin.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AmazonAdminDashboardMVC.Controllers
 {
-    public class CategoryController : Controller
+	[Authorize(Roles = "Admin")]
+	public class CategoryController : Controller
     {
         private readonly IcategoryServices categoryService;
         private readonly IImageService imageService;

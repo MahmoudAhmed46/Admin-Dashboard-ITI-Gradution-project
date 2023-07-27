@@ -9,11 +9,10 @@ namespace AmazonAdmin.DTO
 {
 	public class UserLoginDTO
 	{
-        //[StringLength(50, MinimumLength = 3, ErrorMessage = "Name Length Must Be Between 3 to 50 char")]
-        public string? EmailAddress { get; set; }
-        public string? Phone { get; set; }
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name Length Must Be Between 3 to 50 char")]
+        public string userName { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        public bool? RememberMe { get; set; }
+        public bool RememberMe { get; set; }
     }
 }

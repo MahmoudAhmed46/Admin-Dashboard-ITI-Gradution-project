@@ -40,6 +40,7 @@ namespace AmazonAdminDashboardMVC
             builder.Services.AddScoped<IOrderItemReposatory, OrderItemReposatory>();
 			builder.Services.AddScoped<IImageReposatory, ImageReposatory>();
 			builder.Services.AddScoped<IUserReposatory, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
             //builder.Services.AddScoped<>
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<IRatingRepository, RatingRepository>();
@@ -54,7 +55,7 @@ namespace AmazonAdminDashboardMVC
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

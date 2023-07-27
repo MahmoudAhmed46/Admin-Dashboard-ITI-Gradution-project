@@ -9,7 +9,6 @@ namespace AmazonAdmin.Application.Services
 {
     public interface IUserService
     {
-        Task<bool> RegisterDTO(UserLoginDTO user);
         Task<UserRegisterDTO> Login(string phone);
     }
 }

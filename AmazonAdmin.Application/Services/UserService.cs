@@ -1,4 +1,5 @@
 ﻿using AmazonAdmin.Application.Contracts;
+using AmazonAdmin.Domain;
 using AmazonAdmin.DTO;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -14,8 +15,10 @@ namespace AmazonAdmin.Application.Services
     {
         private readonly IUserReposatory _repo;
         private readonly IMapper _mapper;
-        public UserService(IUserReposatory repo, IMapper mapper)
+        private readonly UserManager<ApplicationUser> _UserManager;
+        public UserService(UserManager<ApplicationUser> UserManager, IUserReposatory repo, IMapper mapper)
         {
+            _UserManager=UserManager;
             _repo = repo;
             _mapper = mapper;
         }
@@ -25,9 +28,5 @@ namespace AmazonAdmin.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> RegisterDTO(UserLoginDTO user)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
