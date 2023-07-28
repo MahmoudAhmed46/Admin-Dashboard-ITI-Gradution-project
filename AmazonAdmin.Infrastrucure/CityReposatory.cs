@@ -21,16 +21,9 @@ namespace AmazonAdmin.Infrastructure
 
         }
 
-        public Task<List<City>> GetAll()
+        public async Task<List<City>> GetCitiesbyCountry(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<City>> GetAllByCountryId(int id)
-        {
-
-            return await dbset.Where(c=>c.CountryId== id).ToListAsync();
-           
+            return  dbset.Where(c => c.CountryId == id).ToList();
         }
     }
 }

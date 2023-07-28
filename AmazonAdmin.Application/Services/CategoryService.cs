@@ -43,18 +43,6 @@ namespace AmazonAdmin.Application.Services
             return mapper.Map<CategoryDTO>(category);
         }
 
-        public async Task<List<arCategoryDTO>> GetAllCategoryInAR()
-        {
-            var categories = (await _Repo.GetAllAsync())
-                     .Where(c => c.categoryId == null).ToList();
-            return mapper.Map<List<arCategoryDTO>>(categories);
-        }
-
-        public async Task<arCategoryDTO> GetByIdAsyncInAR(int ID)
-        {
-            var category = await _Repo.GetByIdAsync(ID);
-            return mapper.Map<arCategoryDTO>(category);
-        }
 
         public async Task<AddCategoryDto> CreateAsync(AddCategoryDto categoryVm)
         {

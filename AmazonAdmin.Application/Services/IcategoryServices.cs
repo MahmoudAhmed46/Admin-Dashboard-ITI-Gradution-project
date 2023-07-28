@@ -12,8 +12,6 @@ namespace AmazonAdmin.Application.Services
     {
         Task<List<CategoryDTO>> GetAllCategory();
         Task<CategoryDTO> GetByIdAsync(int ID);
-        Task<List<arCategoryDTO>> GetAllCategoryInAR();
-        Task<arCategoryDTO> GetByIdAsyncInAR(int ID);
         Task<AddCategoryDto> CreateAsync(AddCategoryDto categoryVm);
         Task<AddCategoryDto> UpdateAsync(AddCategoryDto categoryVm, int id);
     }

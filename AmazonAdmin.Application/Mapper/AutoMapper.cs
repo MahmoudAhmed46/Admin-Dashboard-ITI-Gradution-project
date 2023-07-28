@@ -15,11 +15,8 @@ namespace AmazonAdmin.Application.Mapper
         {
             CreateMap<Category, SubCategoryDTO>().ReverseMap();
             CreateMap<Category, CategoryDTO>().ReverseMap();
-            CreateMap<Category,arCategoryDTO>().ReverseMap();
-            CreateMap<Category, arsubcategory>().ReverseMap();
             CreateMap<Product, ShowProductDTO>().ReverseMap();
             CreateMap<Product,AddUpdateProductDTO>().ReverseMap();
-            CreateMap<Product, ArShowproduct>().ReverseMap();
             CreateMap<ApplicationUser,UserRegisterDTO>().ReverseMap();
             CreateMap<ApplicationUser,UserLoginDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemShow>().ReverseMap();
@@ -31,6 +28,8 @@ namespace AmazonAdmin.Application.Mapper
 			CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<Country, CountryDTO>().ReverseMap();
             CreateMap<City, CitiesListDTO>().ReverseMap();
+            CreateMap<City, CreateUpdateCity>().ReverseMap();
+            CreateMap<CitiesListDTO, CreateUpdateCity>().ReverseMap();
             CreateMap<shippingAddress, AddAndEditShippingAddressDTO>().ReverseMap();
         }
     }

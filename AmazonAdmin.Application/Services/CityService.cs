@@ -21,10 +21,63 @@ namespace AmazonAdmin.Application.Services
             _mapper = mapper;
         }
 
+        public async Task<bool> AddCity(CreateUpdateCity citiesListDTO)
+        {
+            var res=await _cityRepo.CreateAsync(_mapper.Map<City>(citiesListDTO));
+            if(res != null)
+            {
+                await _cityRepo.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DeleteCity(int id)
+        {
+            var res = await _cityRepo.DeleteAsync(id);
+            if (res)
+            {
+                await _cityRepo.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<List<CitiesListDTO>> GetCities()
         {
-           List<City> cities=  await _cityRepo.GetAll();
-           return _mapper.Map<List<CitiesListDTO>>(cities);
+            return _mapper.Map<List<CitiesListDTO>>(await _cityRepo.GetAllAsync());
+        }
+
+        public async Task<List<CitiesListDTO>> GetCitiesByCountry(int id)
+        {
+            return _mapper.Map<List<CitiesListDTO>>(await _cityRepo.GetCitiesbyCountry(id));
+        }
+
+        public async Task<CreateUpdateCity> GetCityById(int id)
+        {
+            return _mapper.Map<CreateUpdateCity>(await _cityRepo.GetByIdAsync(id));
+        }
+
+        public async Task<bool> UpdateCity(int id, CreateUpdateCity citiesListDTO)
+        {
+            City city = _mapper.Map<City>(citiesListDTO);
+            city.Id = id;
+            var res = await _cityRepo.UpdateAsync(city);
+            if (res)
+            {
+                await _cityRepo.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
