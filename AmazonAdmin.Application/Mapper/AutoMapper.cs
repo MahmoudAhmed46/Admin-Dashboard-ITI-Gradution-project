@@ -29,7 +29,9 @@ namespace AmazonAdmin.Application.Mapper
 			CreateMap<Category, AddCategoryDto>().ReverseMap();
 			CreateMap<CategoryDTO, AddCategoryDto>().ReverseMap();
 			CreateMap<Order, OrderDTO>().ReverseMap();
-
+            CreateMap<Country, CountryDTO>().ReverseMap();
+            CreateMap<City, CitiesListDTO>().ReverseMap();
+            CreateMap<shippingAddress, AddAndEditShippingAddressDTO>().ReverseMap();
         }
     }
 }

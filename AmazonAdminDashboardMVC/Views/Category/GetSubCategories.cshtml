@@ -30,16 +30,16 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<div class="text-center">
-						<a class="btn btn-sm btn-info" asp-controller="Category" asp-action="Details" asp-route-id="@category.Id">
-							SubCategories
+					<div class="text-right">
+						<a class="btn btn-sm btn-info" asp-controller="Product" asp-action="GetProductByCatId" asp-route-id="@category.Id">
+							Products
 						</a>
 						<a class="btn btn-sm bg-teal" asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id">
 							Edit
 						</a>
-						<a class="btn btn-sm bg-danger" asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id">
+@*						<a class="btn btn-sm bg-danger" asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id">
 							Delete
-						</a>
+						</a>*@
 					</div>
 				</div>
 			</div>

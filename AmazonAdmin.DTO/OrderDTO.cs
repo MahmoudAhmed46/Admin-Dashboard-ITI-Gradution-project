@@ -13,5 +13,6 @@ namespace AmazonAdmin.DTO
         public DateTime ArrivalDate { get; set; }
         public string UserId { get; set; }
         public List<OrderItemShow>? OrderItems { get; set; }
+        public string? UserName { get; set; }
     }
 }

@@ -37,18 +37,17 @@
             <span asp-validation-for="UnitInStock" class="text-danger"></span>
         </div>
 
-        <div class="form-group">
+@*        <div class="form-group">
 
             @foreach (var item in Model.imageDTOs)
             {
-                <img src="~/images/@item.Name" width="100px" height="100px" />
+                <img src="G:/Gradu/@item.Name" width="100px" height="100px" />
             }
-        </div>
-        <div class="form-group">
+        </div>*@
+@*        <div class="form-group">
             <label class="control-label">Upload Image</label>
             <input name="image" class="form-control" type="file" multiple />
-        </div>
-
+        </div>*@
         <div class="form-group">
             <label asp-for="Description" class="control-label"></label>
             <textarea asp-for="Description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -59,7 +58,6 @@
             <textarea asp-for="arabicDescription" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             <span asp-validation-for="arabicDescription" class="text-danger"></span>
         </div>
-
         <div class="form-group">
             <label asp-for="CategoryId" class="control-label">Category</label>
             <select asp-for="CategoryId" class="form-control" asp-items="items"></select>

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace AmazonAdmin.Application.Services
 {
-    public interface IUserService
+    public interface ICountryServices
     {
-        Task<UserRegisterDTO> Login(string phone);
-        Task<string> UserName(string id);
+        Task<List<CountryDTO>> GetAll();
     }
 }

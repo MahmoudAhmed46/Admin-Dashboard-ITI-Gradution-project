@@ -13,33 +13,35 @@ namespace AmazonAdmin.Infrastructure
     public class ImageReposatory : Reposatory<Image, int>, IImageReposatory
     {
         ApplicationContext Context;
+        DbSet<Image> _Dbset;
         public ImageReposatory(ApplicationContext context) : base(context)
         {
             Context = context;
+            _Dbset=Context.Set<Image>();
         }
 
         public int GetImageObjectByCategoryId(int categoryId)
         {
-            var imgage = Context.Images.FirstOrDefault(p => p.categoryId == categoryId);
+            var imgage = _Dbset.FirstOrDefault(p => p.categoryId == categoryId);
             int id = (imgage != null) ? imgage.Id : 0;
             return id;
         }
 
         public string GetImagesByCategoryId(int id)
         {
-            var res = Context.Images.FirstOrDefault(p => p.categoryId == id)?.Name;
+            var res = _Dbset.FirstOrDefault(p => p.categoryId == id)?.Name;
             return res;
         }
 
         public async Task<List<string>> GetImagesByPrdId(int id)
         {
-            var res = Context.Images.Where(p => p.ProductID == id).Select(i => i.Name).ToList();
+            var res = _Dbset.Where(p => p.ProductID == id).Select(i => i.Name).ToList();
             return res;
         }
 
-        public async Task<List<Image>> GetImagesByProductdId(int id)
+        public  List<Image> GetImagesByProductdId(int id)
         {
-            return Context.Images.Where(p => p.ProductID == id).ToList();
+            return _Dbset.Where(p => p.ProductID == id).ToList();
         }
     }
 }

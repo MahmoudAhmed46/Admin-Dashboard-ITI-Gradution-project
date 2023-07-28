@@ -42,10 +42,10 @@ namespace AmazonAdmin.Application.Services
             return imageId;
         }
 
-        public async Task<List<ImageDTO>> gitImagesByProdId(int id)
+        public  List<ImageDTO> gitImagesByProdId(int id)
         {
             var res = _imagerepo.GetImagesByProductdId(id);
-            return _Mapper.Map<Task<List<Image>>, List<ImageDTO>>(res);
+            return _Mapper.Map<List<ImageDTO>>(res);
         }
 
         public async Task<bool> UpdateImage(ImageDTO img)

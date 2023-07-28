@@ -28,5 +28,11 @@ namespace AmazonAdmin.Application.Services
             throw new NotImplementedException();
         }
 
+        public async Task<string> UserName(string id)
+        {
+            var User = await _UserManager.FindByIdAsync(id);
+            string name = User.UserName;
+            return name;
+        }
     }
 }

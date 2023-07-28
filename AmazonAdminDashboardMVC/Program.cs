@@ -45,6 +45,11 @@ namespace AmazonAdminDashboardMVC
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<IRatingRepository, RatingRepository>();
             builder.Services.AddScoped<IRatingService, RatingService>();
+            builder.Services.AddScoped<ICityReposatory, CityReposatory>();
+            builder.Services.AddScoped<IcountryReposatory, CountryReposatory>();
+            builder.Services.AddScoped<IShippingAddressRepository, ShippingAddressReposatory>();
+            builder.Services.AddScoped<ICityService, CityService>();
+            builder.Services.AddScoped<ICountryServices, CountryServices>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

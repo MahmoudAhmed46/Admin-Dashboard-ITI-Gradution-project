@@ -14,5 +14,6 @@ namespace AmazonAdmin.Application.Services
         Task<OrderDTO> Create(OrderDTO orderDTO);
         Task<OrderDTO> Update(OrderDTO orderDTO);
         Task<bool> Delete(int id);
+        Task<List<OrderDTO>> GetAllOrders();
     }
 }

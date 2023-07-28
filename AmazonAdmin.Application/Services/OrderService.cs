@@ -45,6 +45,11 @@ namespace AmazonAdmin.Application.Services
             return mapper.Map<List<OrderDTO>>(orders);
         }
 
+        public async Task<List<OrderDTO>> GetAllOrders()
+        {
+            return mapper.Map<List<OrderDTO>>(await orderReposatory.GetAllAsync());
+        }
+
         public async Task<OrderDTO> GetByIdAsync(int id)
         {
             var order = await orderReposatory.GetByIdAsync(id);

@@ -27,8 +27,11 @@ namespace AmazonAdminDashboardMVC.Controllers
         {
             return View(await _services.GetAllProducts());
         }
-
-        public async Task<IActionResult> AddProduct()
+		public async Task<IActionResult> GetProductByCatId(int id) 
+        { 
+			return View("Index",await _services.GetProductsByCategoryId(id));
+		}
+		public async Task<IActionResult> AddProduct()
         {
             List<SubCategoryDTO> categories = await _catservice.GetAllSubcategories();
             AddUpdateProductDTO createProduct = new AddUpdateProductDTO();
@@ -36,7 +39,7 @@ namespace AmazonAdminDashboardMVC.Controllers
             return View(createProduct);
         }
 
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> AddProduct(AddUpdateProductDTO createProductDTO,
                                           List<IFormFile> image)
         {
@@ -60,11 +63,8 @@ namespace AmazonAdminDashboardMVC.Controllers
 
                         using (FileStream fileStream = new FileStream(fullPath, FileMode.Create))
                         {
-                            await item.CopyToAsync(fileStream);
+                             item.CopyTo(fileStream);
                         }
-
-
-
                         await _imageservice.uploadImage(new ImageDTO() { Name = filname, ProductID = result.Id });
                     }
 
@@ -81,7 +81,7 @@ namespace AmazonAdminDashboardMVC.Controllers
             var productModel = await _services.GetProductsById(id);
             AddUpdateProductDTO productDTO = _Mapper.Map<AddUpdateProductDTO>(productModel);
             List<SubCategoryDTO> categories = await _catservice.GetAllSubcategories();
-            productDTO.imageDTOs = await _imageservice.gitImagesByProdId(id);
+            productDTO.imageDTOs =  _imageservice.gitImagesByProdId(id);
             productDTO.SubCategories = categories;
             return View(productDTO);
         }
@@ -92,39 +92,15 @@ namespace AmazonAdminDashboardMVC.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-
-
 				var result = await _services.UpdateProduct(id,createProductDTO);
 				if (result)
                 {
-
-                    foreach (var item in image)
-                    {
-                        if (item == null || item.Length == 0)
-                        {
-                            createProductDTO.SubCategories = await _catservice.GetAllSubcategories();
-                            return View(createProductDTO);
-                        }
-                        string uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "images");
-                        string filname = new Guid().ToString() + "_" + item.FileName;
-                        string fullPath = Path.Combine(uploadPath, filname);
-
-                        using (FileStream fileStream = new FileStream(fullPath, FileMode.Create))
-                        {
-                            await item.CopyToAsync(fileStream);
-                        }
-
-
-
-                        await _imageservice.uploadImage(new ImageDTO() { Name = filname, ProductID = id });
-                    }
                     return RedirectToAction("Index");
                 }
+               
 			}
-
 			createProductDTO.SubCategories = await _catservice.GetAllSubcategories();
-			
-			return View();
+			return View(createProductDTO);
 		}
 		public async Task<IActionResult> DeleteProduct(int id)
 		{

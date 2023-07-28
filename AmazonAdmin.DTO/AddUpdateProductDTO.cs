@@ -23,6 +23,6 @@ namespace AmazonAdmin.DTO
         public string arabicDescription { get; set; }
         public int CategoryId { get; set; }
         public List<SubCategoryDTO>? SubCategories { get; set; }
-        public List<ImageDTO> ? imageDTOs { get; set; }
+        public List<ImageDTO>? imageDTOs { get; set; }
     }
 }
