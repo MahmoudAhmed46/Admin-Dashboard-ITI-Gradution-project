@@ -36,8 +36,15 @@ namespace AmazonAdmin.Application.Services
                 .Where(c => c.categoryId == null).ToList();
             return mapper.Map<List<CategoryDTO>>(categories);
         }
+		public async Task<IQueryable<Category>> GetAllCategoryQuarable(string searchValue)
+		{
+			var categories = (await _Repo.GetAllAsync())
+			   .Where(c => c.categoryId == null && (string.IsNullOrEmpty(searchValue) ? true :
+               (c.Name.Contains(searchValue)||c.arabicName.Contains(searchValue))));
+			return categories;
+		}
 
-        public async Task<CategoryDTO> GetByIdAsync(int ID)
+		public async Task<CategoryDTO> GetByIdAsync(int ID)
         {
             var category = await _Repo.GetByIdAsync(ID);
             return mapper.Map<CategoryDTO>(category);
@@ -114,5 +121,7 @@ namespace AmazonAdmin.Application.Services
 
             return await Task.FromResult(filename);
         }
-    }
+
+		
+	}
 }

@@ -1,4 +1,5 @@
-﻿using AmazonAdmin.DTO;
+﻿using AmazonAdmin.Domain;
+using AmazonAdmin.DTO;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace AmazonAdmin.Application.Services
     public interface IcategoryServices
     {
         Task<List<CategoryDTO>> GetAllCategory();
+        Task<IQueryable<Category>> GetAllCategoryQuarable(string searchValue);
         Task<CategoryDTO> GetByIdAsync(int ID);
         Task<AddCategoryDto> CreateAsync(AddCategoryDto categoryVm);
         Task<AddCategoryDto> UpdateAsync(AddCategoryDto categoryVm, int id);

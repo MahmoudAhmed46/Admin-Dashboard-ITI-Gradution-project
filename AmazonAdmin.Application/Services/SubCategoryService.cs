@@ -59,5 +59,26 @@ namespace AmazonAdmin.Application.Services
             }
             return list;
         }
-    }
+
+		public async Task<IQueryable<Category>> GetAllSubCategoryQuarable(int catId, string searchValue)
+		{
+            var subCategories = (await _Repo.GetAllAsync())
+                .Where(c => c.categoryId == catId && (string.IsNullOrEmpty(searchValue) ? true :
+               (c.Name.Contains(searchValue) || c.arabicName.Contains(searchValue))));
+
+            //var list = mapper.Map<List<SubCategoryDTO>>(subCategories);
+
+            //foreach (var item in list)
+            //{
+            //    var res = _imageReposatory.GetImagesByCategoryId(item.Id);
+            //    if (res != null)
+            //    {
+            //        item.imageName = res;
+            //    }
+            //}
+
+            //return list;
+            return subCategories;
+        }
+	}
 }

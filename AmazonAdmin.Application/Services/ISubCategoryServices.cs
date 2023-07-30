@@ -1,4 +1,5 @@
-﻿using AmazonAdmin.DTO;
+﻿using AmazonAdmin.Domain;
+using AmazonAdmin.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace AmazonAdmin.Application.Services
 	{
 		Task<List<SubCategoryDTO>> getSubCategoryByCatId(int id);
 		Task<List<SubCategoryDTO>> GetAllSubcategories();
+        Task<IQueryable<Category>> GetAllSubCategoryQuarable(int catId,string searchValue);
+
 
     }
 }

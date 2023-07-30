@@ -1,4 +1,5 @@
-﻿using AmazonAdmin.DTO;
+﻿using AmazonAdmin.Domain;
+using AmazonAdmin.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AmazonAdmin.Application.Services
         Task<List<ShowProductDTO>> GetProductsByCategoryId(int categoryId);
         Task<ShowProductDTO> GetProductsById(int id);
         Task<List<ShowProductDTO>> GetAllProducts();
+        Task<IQueryable<Product>> GetAllProductsQuarable(string valueSearch);
         Task<List<ShowProductDTO>> FilterByPrice(int catid,decimal initprice,decimal finalprice);
         Task<List<ShowProductDTO>> SearchByProductName(string name);
         Task<List<ShowProductDTO>> SearchByArProductName(string Arname);

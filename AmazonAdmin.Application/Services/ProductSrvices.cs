@@ -36,7 +36,13 @@ namespace AmazonAdmin.Application.Services
             var res = products.Where(p => p.Status == true);
             return _mapper.Map<List<ShowProductDTO>>(res);
         }
-
+        public async Task<IQueryable<Product>> GetAllProductsQuarable(string valueSearch)
+        {
+            var products = await _reposatory.GetAllAsync();
+            var res = products.Where(p => string.IsNullOrEmpty(valueSearch) ? true :
+            p.Name.Contains(valueSearch) || p.arabicName.Contains(valueSearch));
+            return res;
+        }
         public async Task<List<ShowProductDTO>> GetProductsByCategoryId(int categoryId)
         {
             var products = await _reposatory.GetAllAsync();

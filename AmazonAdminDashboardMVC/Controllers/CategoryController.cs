@@ -23,12 +23,30 @@ namespace AmazonAdminDashboardMVC.Controllers
             imageService = _imageService;
             _subcategoryService = subcategoryServices;
         }
+       
         public async Task<IActionResult> Index()
         {
-            var categories = await categoryService.GetAllCategory();
-            return View(categories);
-        }
-        [HttpGet]
+            //var categories = await categoryService.GetAllCategory();
+            //return View(categories);
+            return View();
+		}
+        [HttpPost]
+		public async Task<IActionResult> GetAll()
+		{
+            int skip = int.Parse(Request.Form["start"]);
+            int pageSize = int.Parse(Request.Form["length"]);
+            string searchValue = Request.Form["search[value]"];
+
+			var categories = await categoryService.GetAllCategoryQuarable(searchValue);
+
+            var data = categories.Skip(skip).Take(pageSize).ToList();
+
+			var recordsTotal = categories.Count();
+
+			var jsonDate = new { recordsFiltered = recordsTotal, recordsTotal, data};
+			return Json(jsonDate);
+		}
+		[HttpGet]
         public async Task<IActionResult> Create()
         {
             var categories = await categoryService.GetAllCategory();
@@ -73,10 +91,31 @@ namespace AmazonAdminDashboardMVC.Controllers
             }
             return View();
         }
+        
         public async Task<IActionResult> GetSubCategories(int id)
         {
-            List<SubCategoryDTO> subCategories = await _subcategoryService.getSubCategoryByCatId(id);
-            return View(subCategories);
-        }
+            //List<SubCategoryDTO> subCategories = await _subcategoryService.getSubCategoryByCatId(id);
+            //return View(subCategories);
+            ViewBag.id = id;
+            return View();
+
+		}
+    
+		[HttpPost]
+		public async Task<IActionResult> GetAllSubCategories(int id)
+        {
+            int skip = int.Parse(Request.Form["start"]);
+            int pageSize = int.Parse(Request.Form["length"]);
+            string searchValue = Request.Form["search[value]"];
+
+            var categories = await _subcategoryService.GetAllSubCategoryQuarable(id,searchValue);
+
+			var data = categories.Skip(skip).Take(pageSize).ToList();
+
+			var recordsTotal = categories.Count();
+
+			var jsonDate = new { recordsFiltered = recordsTotal, recordsTotal, data=categories };
+			return Json(jsonDate);
+		}
     }
 }

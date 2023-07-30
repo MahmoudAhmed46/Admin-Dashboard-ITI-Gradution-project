@@ -400,3 +400,5 @@ FodyWeavers.xsd
 /AmazonAdminDashboardMVC/appsettings.json
 /AmazonAdmin.Context/Migrations/20230726170102_addRate.cs
 /AmazonAdmin.Context/Migrations/20230726170102_addRate.Designer.cs
+/AmazonAdmin.Context/Migrations/20230727184018_editShippingAddress.cs
+/AmazonAdmin.Context/Migrations/20230727184018_editShippingAddress.Designer.cs

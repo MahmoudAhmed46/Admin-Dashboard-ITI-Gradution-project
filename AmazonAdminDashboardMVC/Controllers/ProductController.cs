@@ -25,9 +25,26 @@ namespace AmazonAdminDashboardMVC.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(await _services.GetAllProducts());
+            //return View(await _services.GetAllProducts());
+            return View();
         }
-		public async Task<IActionResult> GetProductByCatId(int id) 
+        [HttpPost]
+        public async Task<IActionResult> GetAll()
+        {
+            int skip = int.Parse(Request.Form["start"]);
+            int pageSize = int.Parse(Request.Form["length"]);
+            string searchValue = Request.Form["search[value]"];
+
+            var products =  await _services.GetAllProductsQuarable(searchValue);
+
+            var data = products.Skip(skip).Take(pageSize).ToList();
+
+            var recordsTotal = products.Count();
+
+            var jsonDate = new { recordsFiltered = recordsTotal, recordsTotal, data=products };
+            return Json(jsonDate);
+        }
+        public async Task<IActionResult> GetProductByCatId(int id) 
         { 
 			return View("Index",await _services.GetProductsByCategoryId(id));
 		}
