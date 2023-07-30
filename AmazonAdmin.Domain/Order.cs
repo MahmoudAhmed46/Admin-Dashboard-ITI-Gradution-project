@@ -22,6 +22,7 @@ namespace AmazonAdmin.Domain
         public DateTime ArrivalDate { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
+        public decimal total { get; set; }
         public Status status { get; set; }
         [ForeignKey("shippingAddress")]
         public int shippingAddressId { get; set; }
