@@ -18,7 +18,7 @@ namespace AmazonAdmin.Infrastructure
 		public async Task<T> CreateAsync(T item)
 		{
 			var res = (await _Dbset.AddAsync(item)).Entity;
-			await SaveChangesAsync();
+			//await SaveChangesAsync();
 			return res;
 		}
 

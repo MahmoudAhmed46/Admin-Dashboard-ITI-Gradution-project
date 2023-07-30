@@ -20,7 +20,9 @@ namespace AmazonAdmin.Domain
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ArrivalDate { get; set; }
-        [ForeignKey("User")]
+		public decimal total { get; set; }
+
+		[ForeignKey("User")]
         public string UserId { get; set; }
         public decimal total { get; set; }
         public Status status { get; set; }
