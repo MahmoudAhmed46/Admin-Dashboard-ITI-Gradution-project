@@ -15,18 +15,21 @@ namespace AmazonAdmin.Application.Services
 {
     public class CategoryService : IcategoryServices
     {
-        ICategoryReposatory _Repo;
+        private readonly ICategoryReposatory _Repo;
+		private readonly IImageReposatory _ImageRepo;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment hosting;
         private readonly IImageService imageService;
         public CategoryService(ICategoryReposatory repo,
             IMapper mapper, IWebHostEnvironment _hosting,
-            IImageService _imageService
+			IImageReposatory ImageRepo,
+			IImageService _imageService
            )
         {
             _Repo = repo;
             this.mapper = mapper;
             hosting = _hosting;
+            _ImageRepo = ImageRepo;
             imageService = _imageService;
         }
 
@@ -61,17 +64,14 @@ namespace AmazonAdmin.Application.Services
             };
 
             var Categoryres = await _Repo.CreateAsync(category);
+            await _Repo.SaveChangesAsync();
 
-            string filename = await generateImageName(categoryVm.imageFile);
-            if (filename != string.Empty)
-            {
-                await imageService.uploadImage(new ImageDTO()
-                {
-                    Name = filename,
-                    categoryId = Categoryres?.Id
-                });
-            }
-            return mapper.Map<AddCategoryDto>(Categoryres);
+			if (Categoryres != null)
+			{
+				bool validateInsert = await generateImageName(categoryVm.imageFile, Categoryres.Id);
+                await _ImageRepo.SaveChangesAsync();
+			}
+			return mapper.Map<AddCategoryDto>(Categoryres);
         }
 
         public async Task<AddCategoryDto> UpdateAsync(AddCategoryDto categoryVm, int id)
@@ -84,42 +84,47 @@ namespace AmazonAdmin.Application.Services
                 categoryId = (categoryVm.categoryId != 0) ? categoryVm.categoryId : null,
             };
             var res = await _Repo.UpdateAsync(category);
-            string filename = await generateImageName(categoryVm.imageFile);
-            if (filename != string.Empty)
-            {
-				var imageId = imageService.getImageObjByCategoryId(id);
-				await imageService.UpdateImage(new ImageDTO()
-                {
-                    Id = imageId,
-                    Name = filename,
-                    categoryId = id
-                });
-            }
-            else if(filename != string.Empty)
-            {
-				await imageService.uploadImage(new ImageDTO()
-				{
-					Name = filename,
-					categoryId = id
-				});
-			}
-
-		   await _Repo.SaveChangesAsync();
+            
+            bool ValidInsert = await generateImageName(categoryVm.imageFile,id);
+         
+		    await _Repo.SaveChangesAsync();
 			
 			return mapper.Map<AddCategoryDto>(category);
         }
-        private async Task<string> generateImageName(IFormFile? image)
+        private async Task<bool> generateImageName(IFormFile? image,int catId)
         {
             string filename = "";
             if (image != null || image?.Length > 0)
             {
-                string uploads = Path.Combine(hosting.WebRootPath, "images");
-                filename = new Guid().ToString() + "_" + image?.FileName;
+				//string uploads = Path.Combine(hosting.WebRootPath, "images");
+				string uploads = Path.Combine("G:/GraduatedProgect/", "uploadedImages");
+
+				filename = new Guid().ToString() + "_" + image?.FileName;
                 string fullpath = Path.Combine(uploads, filename);
                 image?.CopyTo(new FileStream(fullpath, FileMode.Create));
-            }
 
-            return await Task.FromResult(filename);
+				var imageId = imageService.getImageObjByCategoryId(catId);
+                if (imageId != 0)
+                {
+					await imageService.UpdateImage(new ImageDTO()
+					{
+						Id = imageId,
+						Name = filename,
+						categoryId = catId
+					});
+				}
+                else
+                {
+					await imageService.uploadImage(new ImageDTO()
+					{
+						Name = filename,
+						categoryId = catId
+					});
+				}
+                return true;
+			}
+
+            return false;
         }
 
 		
