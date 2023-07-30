@@ -12,7 +12,7 @@ namespace AmazonAdmin.Application.Services
         Task<List<OrderDTO>> getAllByUserId(string id);
         Task<OrderDTO> GetByIdAsync(int id);
         Task<OrderDTO> Create(OrderDTO orderDTO);
-        Task<OrderDTO> Update(OrderDTO orderDTO);
+        Task<bool> Update(OrderDTO orderDTO);
         Task<bool> Delete(int id);
         Task<List<OrderDTO>> GetAllOrders();
     }

@@ -47,7 +47,8 @@ namespace AmazonAdmin.Application.Services
 
         public async Task<List<OrderDTO>> GetAllOrders()
         {
-            return mapper.Map<List<OrderDTO>>(await orderReposatory.GetAllAsync());
+            var res=await orderReposatory.GetAllAsync();
+            return mapper.Map<List<OrderDTO>>(res);
         }
 
         public async Task<OrderDTO> GetByIdAsync(int id)
@@ -56,11 +57,19 @@ namespace AmazonAdmin.Application.Services
             return mapper.Map<OrderDTO>(order);
         }
 
-        public async Task<OrderDTO> Update(OrderDTO orderDTO)
+        public async Task<bool> Update(OrderDTO orderDTO)
         {
-            var order = mapper.Map<Order>(orderDTO);
+            Order order =mapper.Map<Order>(orderDTO);
             var res= await orderReposatory.UpdateAsync(order);
-            return mapper.Map<OrderDTO>(res);
+            if (res)
+            {
+                await orderReposatory.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmazonAdmin.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace AmazonAdmin.DTO
         public string UserId { get; set; }
         public List<OrderItemShow>? OrderItems { get; set; }
         public string? UserName { get; set; }
+        public Status? status { get; set; }
     }
 }

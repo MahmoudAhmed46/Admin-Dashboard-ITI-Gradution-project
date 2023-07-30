@@ -15,5 +15,7 @@ namespace AmazonAdmin.DTO
         public string Productname { get; set; }
         public string arabicProductname { get; set; }
         public string ImgUrl { get; set; }
+        public decimal ProductPrice { get; set; }
+        public decimal supTotalPrice { get; set; }
     }
 }
