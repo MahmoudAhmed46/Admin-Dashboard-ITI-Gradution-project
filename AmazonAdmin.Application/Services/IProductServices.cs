@@ -1,5 +1,6 @@
 ﻿using AmazonAdmin.Domain;
 using AmazonAdmin.DTO;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace AmazonAdmin.Application.Services
         Task<PriceDTO> GetPriceCategoryId(int id);
         Task<List<ShowProductDTO>> GetProductsWithMaxPriceFillter(int catid, decimal max);
         Task<ShowProductDTO> CreateProduct(AddUpdateProductDTO product);
-        Task<bool> UpdateProduct(int id, AddUpdateProductDTO product);
+        Task<bool> UpdateProduct(int id, AddUpdateProductDTO product,List<IFormFile> images);
         Task<bool> DeleteProduct(int id);
         Task<bool> SoftDelete(int id);
     }

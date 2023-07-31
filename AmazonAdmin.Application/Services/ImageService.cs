@@ -42,6 +42,12 @@ namespace AmazonAdmin.Application.Services
             return imageId;
         }
 
+        public List<int> getImagesIdByProductId(int id)
+        {
+            var imagesIdList = _imagerepo.getImagesIdByProduct(id);
+            return imagesIdList;
+        }
+
         public  List<ImageDTO> gitImagesByProdId(int id)
         {
             var res = _imagerepo.GetImagesByProductdId(id);

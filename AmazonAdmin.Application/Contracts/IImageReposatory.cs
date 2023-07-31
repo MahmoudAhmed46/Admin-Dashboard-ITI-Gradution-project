@@ -13,5 +13,6 @@ namespace AmazonAdmin.Application.Contracts
         public List<Image> GetImagesByProductdId(int id);
         public int GetImageObjectByCategoryId(int categoryId);
         public string GetImagesByCategoryId(int id);
+        public List<int> getImagesIdByProduct(int productId);
     }
 }

@@ -43,5 +43,11 @@ namespace AmazonAdmin.Infrastructure
         {
             return _Dbset.Where(p => p.ProductID == id).ToList();
         }
+
+        public List<int> getImagesIdByProduct(int productId)
+        {
+            var imageIds = _Dbset.Where(i => i.ProductID == productId).Select(image => image.Id).ToList();
+            return imageIds;
+        }
     }
 }

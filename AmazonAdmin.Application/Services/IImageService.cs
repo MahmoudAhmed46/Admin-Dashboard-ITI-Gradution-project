@@ -15,5 +15,6 @@ namespace AmazonAdmin.Application.Services
         List<ImageDTO> gitImagesByProdId(int id);
         Task<string> getImageByCategoryId(int id);
         int getImageObjByCategoryId(int id);
+        List<int> getImagesIdByProductId(int id);
     }
 }

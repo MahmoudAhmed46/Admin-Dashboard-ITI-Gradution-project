@@ -109,7 +109,7 @@ namespace AmazonAdminDashboardMVC.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var result = await _services.UpdateProduct(id,createProductDTO);
+				var result = await _services.UpdateProduct(id,createProductDTO,image);
 				if (result)
                 {
                     return RedirectToAction("Index");

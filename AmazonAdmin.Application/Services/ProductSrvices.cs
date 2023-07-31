@@ -2,12 +2,14 @@
 using AmazonAdmin.Domain;
 using AmazonAdmin.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AmazonAdmin.Application.Services
 {
@@ -16,11 +18,13 @@ namespace AmazonAdmin.Application.Services
         private readonly IProductReposatory _reposatory;
         private readonly IMapper _mapper;
         private readonly IImageReposatory _Imgrepo;
-        public ProductSrvices(IProductReposatory reposatory, IMapper mapper,IImageReposatory imageReposatory)
+        private readonly IImageService imageService;
+        public ProductSrvices(IProductReposatory reposatory, IMapper mapper,IImageReposatory imageReposatory, IImageService _imageService)
         {
             _reposatory = reposatory;
             _mapper = mapper;
             _Imgrepo= imageReposatory;
+            imageService = _imageService;
         }
 
         public async Task<List<ShowProductDTO>> FilterByPrice(int catid,decimal initprice, decimal finalprice)
@@ -126,7 +130,7 @@ namespace AmazonAdmin.Application.Services
             }
 		}
 
-		public async Task<bool> UpdateProduct(int id, AddUpdateProductDTO product)
+		public async Task<bool> UpdateProduct(int id, AddUpdateProductDTO product, List<IFormFile> images)
 		{
             Product product1 = _mapper.Map<Product>(product);
             product1.Id = id;
@@ -134,9 +138,19 @@ namespace AmazonAdmin.Application.Services
             if (res)
             {
                 await _reposatory.SaveChangesAsync();
+                bool checkRes = await updateProductImages(images, id);
+                if (checkRes)
+                {
+                    await _Imgrepo.SaveChangesAsync(); 
+                }
+
                 return true;
             }
-            else { return false; }
+            else 
+            {
+                return false; 
+            }
+
 		}
 
 		public async Task<bool> DeleteProduct(int id)
@@ -158,5 +172,72 @@ namespace AmazonAdmin.Application.Services
             var res = await _reposatory.DeleteProductSoftly(id);
             return res ? true : false;
         }
+        private async Task<bool> updateProductImages(List<IFormFile> images, int prodId)
+        {
+            List<int> imageIdList = imageService.getImagesIdByProductId(prodId);
+            if(imageIdList.Count > 0 && images.Count > 0)
+            {
+                int min = Math.Min(imageIdList.Count, images.Count);
+                int count = 0;
+                for(int i = 0; i < min; i++)
+                {
+                    count=i+1;
+                    string filename = "";
+                    if (images[i]!= null || images[i].Length > 0)
+                    {
+                        filename = getFileName(images[i]);
+                        await imageService.UpdateImage(new ImageDTO()
+                        {
+                            Id = imageIdList[i],
+                            Name = filename,
+                            ProductID = prodId
+                        });
+                    }
+                }
+                if(images.Count > min)
+                {
+                    for(int i=count; i<images.Count; i++)
+                    {
+
+                        string filename = getFileName(images[i]);
+                        await imageService.uploadImage(new ImageDTO()
+                        {
+                            Name = filename,
+                            ProductID = prodId
+                        });
+                    }
+                }
+            }
+            else if (images.Count>0)
+            {
+                foreach(var item in images)
+                {
+                    string filename = getFileName(item);
+                    await imageService.uploadImage(new ImageDTO()
+                    {
+                        Name = filename,
+                        ProductID = prodId
+                    });
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private string getFileName(IFormFile image)
+        {   
+                string filename = "";
+                //string uploads = Path.Combine(hosting.WebRootPath, "images");
+                string uploads = Path.Combine("G:/GraduatedProgect/", "uploadedImages");
+                filename = new Guid().ToString() + "_" + image?.FileName;
+                string fullpath = Path.Combine(uploads, filename);
+                image?.CopyTo(new FileStream(fullpath, FileMode.Create));
+
+            return filename;
+        }
+
     }
 }
