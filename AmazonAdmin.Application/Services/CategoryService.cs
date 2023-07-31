@@ -96,9 +96,7 @@ namespace AmazonAdmin.Application.Services
             string filename = "";
             if (image != null || image?.Length > 0)
             {
-				//string uploads = Path.Combine(hosting.WebRootPath, "images");
-				string uploads = Path.Combine("G:/GraduatedProgect/", "uploadedImages");
-
+				string uploads = Path.Combine(hosting.WebRootPath, "uploadedImages");
 				filename = new Guid().ToString() + "_" + image?.FileName;
                 string fullpath = Path.Combine(uploads, filename);
                 image?.CopyTo(new FileStream(fullpath, FileMode.Create));

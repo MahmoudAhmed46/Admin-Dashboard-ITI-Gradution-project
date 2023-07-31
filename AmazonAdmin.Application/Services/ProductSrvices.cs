@@ -2,6 +2,7 @@
 using AmazonAdmin.Domain;
 using AmazonAdmin.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -19,12 +20,14 @@ namespace AmazonAdmin.Application.Services
         private readonly IMapper _mapper;
         private readonly IImageReposatory _Imgrepo;
         private readonly IImageService imageService;
-        public ProductSrvices(IProductReposatory reposatory, IMapper mapper,IImageReposatory imageReposatory, IImageService _imageService)
+		private readonly IWebHostEnvironment _webHostEnvironment;
+		public ProductSrvices(IProductReposatory reposatory,IWebHostEnvironment webHostEnvironment ,IMapper mapper,IImageReposatory imageReposatory, IImageService _imageService)
         {
             _reposatory = reposatory;
             _mapper = mapper;
             _Imgrepo= imageReposatory;
             imageService = _imageService;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<List<ShowProductDTO>> FilterByPrice(int catid,decimal initprice, decimal finalprice)
@@ -230,8 +233,8 @@ namespace AmazonAdmin.Application.Services
         private string getFileName(IFormFile image)
         {   
                 string filename = "";
-                //string uploads = Path.Combine(hosting.WebRootPath, "images");
-                string uploads = Path.Combine("G:/GraduatedProgect/", "uploadedImages");
+			//string uploads = Path.Combine(hosting.WebRootPath, "images");
+                string uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploadedImages");
                 filename = new Guid().ToString() + "_" + image?.FileName;
                 string fullpath = Path.Combine(uploads, filename);
                 image?.CopyTo(new FileStream(fullpath, FileMode.Create));

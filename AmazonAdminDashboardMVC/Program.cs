@@ -6,6 +6,7 @@ using AmazonAdmin.Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 namespace AmazonAdminDashboardMVC
 {
@@ -50,7 +51,8 @@ namespace AmazonAdminDashboardMVC
             builder.Services.AddScoped<IShippingAddressRepository, ShippingAddressReposatory>();
             builder.Services.AddScoped<ICityService, CityService>();
             builder.Services.AddScoped<ICountryServices, CountryServices>();
-            var app = builder.Build();
+			builder.Services.AddDirectoryBrowser();
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -58,8 +60,21 @@ namespace AmazonAdminDashboardMVC
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+			var fileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.WebRootPath, "uploadedImages"));
+			var requestPath = "/uploadedImages";
+			// Enable displaying browser links.
+			app.UseStaticFiles(new StaticFileOptions
+			{
+				FileProvider = fileProvider,
+				RequestPath = requestPath
+			});
 
-            app.UseRouting();
+			app.UseDirectoryBrowser(new DirectoryBrowserOptions
+			{
+				FileProvider = fileProvider,
+				RequestPath = requestPath
+			});
+			app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
